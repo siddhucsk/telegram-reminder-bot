@@ -14,6 +14,7 @@ from nlp_parser import ReminderParser
 import time
 import os
 from dotenv import load_dotenv
+from keep_alive import keep_alive  # Add this import at the top
 
 # Load environment variables
 load_dotenv()
@@ -1220,6 +1221,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 def main() -> None:
     # Initialize database
     init_db()
+    
+    # Start the keep_alive server
+    keep_alive()
     
     # Create the Updater with token from environment variable
     updater = Updater(TELEGRAM_BOT_TOKEN)
