@@ -2,6 +2,8 @@
 
 A feature-rich Telegram bot for managing reminders with support for recurring reminders, priorities, and natural language processing.
 
+This is an experimental project made with cursor ai to test its capability along with Anthropic's claude 3.5 sonnet model.
+
 ## Features
 
 - 🕒 Natural language time parsing
