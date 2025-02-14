@@ -1,0 +1,4 @@
+python-telegram-bot==13.7
+pytz
+python-dateutil
+python-dotenv>=0.19.0 
