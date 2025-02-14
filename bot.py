@@ -1068,9 +1068,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
     if message_text.lower().startswith('reminder') or message_text.lower().startswith('remind'):
         if not get_user_timezone(user_id):
             update.message.reply_text("Please set your time zone first using /timezone")
-            return
-            
-        try:
+        return
+
+    try:
             user_timezone = pytz.timezone(get_user_timezone(user_id))
             now = datetime.now(user_timezone)
             
@@ -1084,7 +1084,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
                 raise ValueError("No valid reminders found")
             
             for reminder in reminders:
-                # Parse the time
+        # Parse the time
                 try:
                     reminder_time = datetime.strptime(reminder['time'], '%I:%M%p')
                 except ValueError:
@@ -1113,9 +1113,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
                     )
                 
                 reminder_time = user_timezone.localize(reminder_time)
-                
-                # Schedule the reminder
-                if reminder_time < now:
+
+        # Schedule the reminder
+        if reminder_time < now:
                     if 'date' not in reminder:  # Only add a day if no specific date was set
                         reminder_time += timedelta(days=1)
                 
@@ -1167,7 +1167,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
                     parse_mode=ParseMode.MARKDOWN
                 )
 
-        except Exception as e:
+    except Exception as e:
             logger.error(f"Error setting reminder: {str(e)}")
             update.message.reply_text(
                 "❌ Error setting reminder. Use /format to see the correct format."
@@ -1227,10 +1227,10 @@ def main() -> None:
     
     # Create the Updater with token from environment variable
     updater = Updater(TELEGRAM_BOT_TOKEN)
-    
+
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
-    
+
     # Register handlers
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
@@ -1243,10 +1243,10 @@ def main() -> None:
     
     # Handle missed reminders and schedule future ones
     handle_missed_reminders(updater.dispatcher)
-    
+
     # Start the Bot
     updater.start_polling()
-    
+
     # Run the bot until you send a signal to stop
     updater.idle()
 
